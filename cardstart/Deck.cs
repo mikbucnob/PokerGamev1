@@ -17,28 +17,28 @@ namespace PokerGame
         public Deck()
         {
             deck = new List<Card>();
+            CreateDeck();
+            deck = Shuffle(deck);
+            foreach (Card card in deck)
+            {
+                Console.WriteLine(String.Format("{0}: {1}", card.suit, card.face));
+            }
+            // deck[count] = new Card(faceTypes[count % 13], suitTypes[count / 13]);
+        }
 
+        private void CreateDeck()
+        {
             Array faceValues = Enum.GetValues(typeof(Face));
             Array suitValues = Enum.GetValues(typeof(Suit));
-            int counter = 0;
+
             foreach (Suit suit in suitValues)
             {
                 foreach (Face face in faceValues)
                 {
-                    counter++;
-                    Console.WriteLine(counter);
                     Console.WriteLine(String.Format("{0}: {1}", suit, face));
                     deck.Add(new Card(face, suit));
                 }
             }
-            deck = Shuffle(deck);
-            foreach (Card card in deck)
-            {
-                counter++;
-                Console.WriteLine(counter);
-                Console.WriteLine(String.Format("{0}: {1}", card.suit, card.face));
-            }
-            // deck[count] = new Card(faceTypes[count % 13], suitTypes[count / 13]);
         }
 
         public Deck(List<Card> cardDeck)

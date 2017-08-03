@@ -21,7 +21,9 @@ namespace PokerGame
         
         public void Start()
         {
-            StartGame(2);
+            deck = new Deck();
+
+            players = CreatePlayerList(numPlayers);
             do
             {
            
@@ -59,14 +61,7 @@ namespace PokerGame
                 }
             //}
         }
-
-        public void StartGame(int numPlayers)
-        {
-            deck = new Deck();
-
-            players=CreatePlayerList(numPlayers);
-            //Deal(myDeck);
-        }
+       
 
         public void TakeTurn(Player player)
         {
