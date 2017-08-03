@@ -12,7 +12,7 @@ namespace PokerGame
         public int numPlayers { get; set; }
         List<Card> hand;
         int counter;
-        //testing github
+        //testing github2
         public Player(List<Card> deckOfCards)
         {
         
