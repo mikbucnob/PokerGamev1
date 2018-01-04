@@ -8,49 +8,60 @@ namespace PokerGame
 {
     class Player
     {
-        public string name { get; set; }
-        public int numPlayers { get; set; }
-        List<Card> hand;
+        public string Name { get; set; }
+        public List<Card> Hand { get; set; }
         int counter;
-        
-        public Player(List<Card> deckOfCards)
-        {
-        
-        
+        public bool HasKnocked {get; set;}
 
+
+        public Player(List<Card> hand)
+        {
+            this.Hand = hand;
         }
 
-
-
-        public int GetNumberPlayers()
+        public List<Card> SwapHand(List<Card> swappingHand)
         {
-            Console.Write("How many players?: ");
-            numPlayers = Convert.ToInt32(Console.ReadLine());
-            return numPlayers;
+            List<Card> temp = Hand;
+            Hand = swappingHand;
+            return temp;
+        }
+
+        public void SwapCard(List<Card> swapHand)
+        {
+            Card temp = swapHand[0];//do comments later!
+            swapHand.RemoveAt(0);//take away from swapHand
+            swapHand.Add(Hand[0]);//adding to swapHand the players card
+            Hand.RemoveAt(0);//removing same card from player's hand
+            Hand.Add(temp);//adding to the players hand the swap card
+            // TODO: finish this
         }
 
         public string GetPlayerName()
         {
             Console.Write("What is the player's name? ");
-            name = Console.ReadLine();
-            return name;
+            Name = Console.ReadLine();
+            return Name;
         }
 
-        public Move TakeTurn(params Move[] moves) {
-            // for loop over moves to prcess what's available...
-           // foreach (Move move in moves) {
 
-           // }
+
+        public Move TakeTurn(List<Move> moves)
+        {
+            // for loop over moves to prcess what's available...
+            // foreach (Move move in moves) {
+
+            // }
 
             //////////// Dumb AI //////////////
             Random r = new Random();
-            int choice = r.Next(moves.Length);
+            int choice = r.Next(moves.Count);
             ///////////////////////////////////
             // To be replaced with 
             // A) Smart AI which makes a good decision???
             // B) Actual player's input from GUI/Command line
 
-            switch (moves[choice]) {
+            switch (moves[choice])
+            {
                 case Move.Knock:
                     // No action required
                     break;
@@ -64,10 +75,12 @@ namespace PokerGame
                     // No action required
                     break;
             }
-
-
-
+            return moves[choice];
         }
 
+
+
     }
+
 }
+

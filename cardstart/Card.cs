@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace PokerGame
 {
+    public class Card
+    {
     public enum Face { Ace = 1, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King };
     public enum Suit { Spades = 1, Clubs, Diamonds, Hearts };
 
-    public class Card
-    {
         // int suit and int face
         // CONSTANTS
         // ENUM suit, ENUM face (ordinal = index) ACE = 0, ONE =1, TWO = 2, THREE = 3

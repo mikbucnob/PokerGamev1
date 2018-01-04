@@ -17,8 +17,7 @@ namespace PokerGame
         public Deck()
         {
             deck = new List<Card>();
-            CreateDeck();
-            deck = Shuffle(deck);
+            CreateDeck();  
             foreach (Card card in deck)
             {
                 Console.WriteLine(String.Format("{0}: {1}", card.suit, card.face));
@@ -46,12 +45,12 @@ namespace PokerGame
             deck = cardDeck;
         }
 
-        public List<Card> Shuffle(List<Card> deck)
+        public List<Card> Shuffle()
         {
             Console.WriteLine("-------------------------------------");
             //Console.WriteLine("Deck count = " + deck.Count);
             Random random = new Random();
-            for (int i=1; i < deck.Count; i++)
+            for (int i=0; i < deck.Count; i++)
             {
                 int j = random.Next(1, deck.Count);
                 Card temp = deck[j];
@@ -64,8 +63,10 @@ namespace PokerGame
         }
 
         public List<Card> Deal(int cardsToDeal)
-        {
-            return deck.Take(cardsToDeal).ToList();
+        {//original deck is not modified
+            List<Card> hand = deck.Take(cardsToDeal).ToList();
+            deck.RemoveRange(0, cardsToDeal);
+            return hand;//taking number of references from deck and returning as list
         }
 
     }
