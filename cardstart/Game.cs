@@ -85,16 +85,26 @@ namespace PokerGame
             // can I knock?
             // any move unless puttable hand (Need hand evaluator to determine)
             // .Sort()
+            player.Hand.Sort();
             HandEvaluator playerHandEvaluator = new HandEvaluator(player.Hand.ToArray());
+        Hand hand = playerHandEvaluator.EvaluateHand();
 
             // Can I put?
             // I *have* to put (because I have a specific hand)
-
+            if(hand.Equals(Hand.Flush) || hand.Equals(Hand.FullHouse) || hand.Equals(Hand.FourKind)
+                || hand.Equals(Hand.StraightFlush))
+                {
+                moves.Add(Move.Put);                
+                }
+            else
+            {
+                moves.Add(Move.Knock);
+            }
             // Can I swap card?
             // can't very first turn otherwise can(swappable)
 
-            // Can I swap hand?
-            // only very first turn of all players(opposite)
+                // Can I swap hand?
+                // only very first turn of all players(opposite)
             if (handswap)
             {
                 //enable card swap

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PokerGame
 {
-    public class Card
+    public class Card : IComparable<Card>
     {
     public enum Face { Ace = 1, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King };
     public enum Suit { Spades = 1, Clubs, Diamonds, Hearts };
@@ -21,7 +21,36 @@ namespace PokerGame
         {
             face = faceValue;
             suit = suitValue;
-        }        
+        }
 
+        public int CompareTo(Card other)
+        {
+            // we KNOW the other is a card for sure. so write logic to find which is higher/lower
+            // -1
+            if (this.face < other.face)
+            {
+                return -1;
+            }
+            else if (this.face > other.face)
+            {
+                return 1;
+            }
+            else if (this.suit > other.suit)
+            {
+                return 1;
+            }
+            else if (this.suit < other.suit)
+            {
+                return -1;
+            }
+            else //face and suit are equal
+            {
+                return 0;
+            }
+
+            // 0 
+            // 1
+
+        }
     }
 }

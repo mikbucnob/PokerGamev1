@@ -1,4 +1,6 @@
-﻿namespace PokerGame
+﻿using System;
+
+namespace PokerGame
 {
     public enum Hand
     {
@@ -9,7 +11,8 @@
         Straight,
         Flush,
         FullHouse,
-        FourKind
+        FourKind,
+        StraightFlush
     }
 
     public struct HandValue
@@ -63,7 +66,9 @@
         {
             //get the number of each suit on hand
             getNumberOfSuit();
-            if (FourOfKind())
+            if (StraightFlush())
+                return Hand.StraightFlush;
+            else if (FourOfKind())
                 return Hand.FourKind;
             else if (FullHouse())
                 return Hand.FullHouse;
@@ -81,6 +86,22 @@
             //if the hand is nothing, than the player with highest card wins
             handValue.HighCard = (int)cards[4].face;
             return Hand.Nothing;
+        }
+
+        private bool StraightFlush()
+        {
+            // TODO: Implement this method!
+            // TODO: confirm all other methods are suitable
+            // I have 5 cards with an unbroken sequence of face values
+            // AND they are all the same suit
+            // look at first card and remember value and suit
+            
+            // Loop:
+            // look at next card and compare value and suit (to make sure face is one up and suit is equal)
+            // inside loop return false if above condition not met
+            // otherwise - loop exits and we return true
+
+            throw new NotImplementedException();
         }
 
         private void getNumberOfSuit()
