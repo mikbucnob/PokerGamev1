@@ -34,12 +34,17 @@ namespace PokerGame
                 foreach (Player player in players)
                 {
                     if (player.HasKnocked)
+                    {
                         gameover = true;
+                        break;
+                    }
                     else if (TakeTurn(player))
+                    {
                         gameover = true;
+                        break;
+                    }
                 }
-
-                Console.ReadLine();
+                
             }
             while (gameover != true);
             // end of game - compare hands to determine winner
@@ -87,15 +92,15 @@ namespace PokerGame
             // .Sort()
             player.Hand.Sort();
             HandEvaluator playerHandEvaluator = new HandEvaluator(player.Hand.ToArray());
-        Hand hand = playerHandEvaluator.EvaluateHand();
+            Hand hand = playerHandEvaluator.EvaluateHand();
 
             // Can I put?
             // I *have* to put (because I have a specific hand)
-            if(hand.Equals(Hand.Flush) || hand.Equals(Hand.FullHouse) || hand.Equals(Hand.FourKind)
+            if (hand.Equals(Hand.Flush) || hand.Equals(Hand.FullHouse) || hand.Equals(Hand.FourKind)
                 || hand.Equals(Hand.StraightFlush))
-                {
-                moves.Add(Move.Put);                
-                }
+            {
+                moves.Add(Move.Put);
+            }
             else
             {
                 moves.Add(Move.Knock);
@@ -103,8 +108,8 @@ namespace PokerGame
             // Can I swap card?
             // can't very first turn otherwise can(swappable)
 
-                // Can I swap hand?
-                // only very first turn of all players(opposite)
+            // Can I swap hand?
+            // only very first turn of all players(opposite)
             if (handswap)
             {
                 //enable card swap
@@ -138,7 +143,7 @@ namespace PokerGame
                 case Move.SwapHand:
                     //do swap hand stuff
                     handswap = false;
-                    tableHand=player.SwapHand(tableHand);
+                    tableHand = player.SwapHand(tableHand);
                     break;
             }
             return false;

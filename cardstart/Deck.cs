@@ -27,12 +27,12 @@ namespace PokerGame
 
         private void CreateDeck()
         {
-            Array faceValues = Enum.GetValues(typeof(Face));
-            Array suitValues = Enum.GetValues(typeof(Suit));
+            Array faceValues = Enum.GetValues(typeof(Card.Face));
+            Array suitValues = Enum.GetValues(typeof(Card.Suit));
 
-            foreach (Suit suit in suitValues)
+            foreach (Card.Suit suit in suitValues)
             {
-                foreach (Face face in faceValues)
+                foreach (Card.Face face in faceValues)
                 {
                     Console.WriteLine(String.Format("{0}: {1}", suit, face));
                     deck.Add(new Card(face, suit));
