@@ -11,7 +11,10 @@ namespace PokerGame
     public enum Face { Ace = 1, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King };
     public enum Suit { Spades = 1, Clubs, Diamonds, Hearts };
 
-        // int suit and int face
+        /*private String [] faceTypes = { "Aces", "Ones", "Two" };
+       private String[] suitTypes = { "Hearts", "Spades", "Clubs", "Diamonds" };*/
+        //can use strings as well
+
         // CONSTANTS
         // ENUM suit, ENUM face (ordinal = index) ACE = 0, ONE =1, TWO = 2, THREE = 3
 
@@ -47,9 +50,7 @@ namespace PokerGame
             {
                 return 0;
             }
-
-            // 0 
-            // 1
+            
 
         }
     }

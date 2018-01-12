@@ -23,7 +23,4 @@ namespace PokerGame
     // nouns = class or variable
     // adjectives = member variables
     // flesh out classes with member variables and method signatures
-
-
-
 }

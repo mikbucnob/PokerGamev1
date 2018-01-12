@@ -28,7 +28,7 @@ namespace PokerGame
 
         public void SwapCard(List<Card> swapHand)
         {
-            Card temp = swapHand[0];//do comments later!
+            Card temp = swapHand[0];
             swapHand.RemoveAt(0);//take away from swapHand
             swapHand.Add(Hand[0]);//adding to swapHand the players card
             Hand.RemoveAt(0);//removing same card from player's hand
@@ -63,24 +63,16 @@ namespace PokerGame
             switch (moves[choice])
             {
                 case Move.Knock:
-                    // No action required
                     break;
                 case Move.Put:
-                    // No action required
                     break;
                 case Move.SwapCard:
-                    // choose card to swap and card to swap with
                     break;
                 case Move.SwapHand:
-                    // No action required
                     break;
             }
             return moves[choice];
         }
-
-
-
     }
-
 }
 

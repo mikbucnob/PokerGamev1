@@ -103,18 +103,7 @@ namespace PokerGame
                 }
             }
             return false;
-            // TODO: Implement this method!
-            // TODO: confirm all other methods are suitable
-            // I have 5 cards with an unbroken sequence of face values
-            // AND they are all the same suit
-            // look at first card and remember value and suit
-
-            // Loop:
-            // look at next card and compare value and suit (to make sure face is one up and suit is equal)
-            // inside loop return false if above condition not met
-            // otherwise - loop exits and we return true
-
-
+            
         }
 
         private void getNumberOfSuit()
@@ -135,7 +124,6 @@ namespace PokerGame
 
         private bool FourOfKind()
         {
-            //if the first 4 cards, add values of the four cards and last card is the highest
             if (cards[0].face == cards[1].face
                 && cards[0].face == cards[2].face &&
                 cards[0].face == cards[3].face)
@@ -148,7 +136,7 @@ namespace PokerGame
                 && cards[1].face == cards[3].face &&
                 cards[1].face == cards[4].face)
             {
-                handValue.Total = (int)cards[1].face * 4;
+                //handValue.Total = (int)cards[1].face * 4;
                 handValue.HighCard = (int)cards[0].face;
                 return true;
             }
