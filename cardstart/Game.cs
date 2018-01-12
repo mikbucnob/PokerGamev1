@@ -65,6 +65,8 @@ namespace PokerGame
                 
             }
             while (gameover != true);
+            players.Sort();
+            
             // TODO: end of game - compare hands to determine winner
             // evaluate *ALL* player's (sorted) hands - for each player, create evaluator
             // and put into collection
@@ -91,9 +93,7 @@ namespace PokerGame
         public List<Move> CalculateMoves(Player player)
         {
             List<Move> moves = new List<Move>();
-            player.Hand.Sort();
-            HandEvaluator playerHandEvaluator = new HandEvaluator(player.Hand.ToArray());
-            Hand hand = playerHandEvaluator.EvaluateHand();
+            Hand hand = player.Hand;
             if (hand.Equals(Hand.Flush) || hand.Equals(Hand.FullHouse) || hand.Equals(Hand.FourKind)
                 || hand.Equals(Hand.StraightFlush))
             {

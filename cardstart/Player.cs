@@ -6,23 +6,34 @@ using System.Threading.Tasks;
 
 namespace PokerGame
 {
-    class Player
+    class Player : IComparable<Player>
     {
         public string Name { get; set; }
-        public List<Card> Hand { get; set; }
+        private List<Card> Cards { get; set; }
         int counter;
         public bool HasKnocked {get; set;}
+        public Hand Hand
+        {
+            get
+            {
+                Cards.Sort();
+                HandEvaluator playerHandEvaluator = new HandEvaluator(Cards.ToArray());
+                return playerHandEvaluator.EvaluateHand();
+                //TODO: evaluator needs to be a class member because it is used
+                // by the compareTo method (total and highcard values)
+            }
+        }
 
 
         public Player(List<Card> hand)
         {
-            this.Hand = hand;
+            this.Cards = hand;
         }
 
         public List<Card> SwapHand(List<Card> swappingHand)
         {
-            List<Card> temp = Hand;
-            Hand = swappingHand;
+            List<Card> temp = Cards;
+            Cards = swappingHand;
             return temp;
         }
 
@@ -30,9 +41,9 @@ namespace PokerGame
         {
             Card temp = swapHand[0];
             swapHand.RemoveAt(0);//take away from swapHand
-            swapHand.Add(Hand[0]);//adding to swapHand the players card
-            Hand.RemoveAt(0);//removing same card from player's hand
-            Hand.Add(temp);//adding to the players hand the swap card
+            swapHand.Add(Cards[0]);//adding to swapHand the players card
+            Cards.RemoveAt(0);//removing same card from player's hand
+            Cards.Add(temp);//adding to the players hand the swap card
             // TODO: finish this
         }
 
@@ -43,7 +54,7 @@ namespace PokerGame
             return Name;
         }
 
-
+        
 
         public Move TakeTurn(List<Move> moves)
         {
@@ -72,6 +83,34 @@ namespace PokerGame
                     break;
             }
             return moves[choice];
+        }
+
+        public int CompareTo(Player other)
+        {
+            if (Hand < other.Hand)
+            {
+                return -1;
+            }
+            else if (Hand > other.Hand)
+            {
+                return 1;
+            }
+            else
+            {
+                //first evaluate who has higher value of poker hand
+                if (this.Hand.Total > other.HandValues.Total)
+                    Console.WriteLine("Player WINS!");
+                else if (playerHandEvaluator.HandValues.Total < computerHandEvaluator.HandValues.Total)
+                    Console.WriteLine("Computer WINS!");
+                //if both hands have the same poker hand ( eg. both have a pair of queens ), 
+                //then the player with the next higher card
+                else if (playerHandEvaluator.HandValues.HighCard > computerHandEvaluator.HandValues.HighCard)
+                    Console.WriteLine("Player WINS!");
+                else if (playerHandEvaluator.HandValues.HighCard < computerHandEvaluator.HandValues.HighCard)
+                    Console.WriteLine("Computer WINS!");
+                else
+                    Console.WriteLine("DRAW, no one wins!");
+            }
         }
     }
 }
