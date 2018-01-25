@@ -14,6 +14,7 @@ namespace PokerGame
         {
             Game game = new Game();
             game.Start();
+            Console.ReadLine();
         }
 
     }

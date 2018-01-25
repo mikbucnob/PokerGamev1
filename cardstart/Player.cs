@@ -6,27 +6,31 @@ using System.Threading.Tasks;
 
 namespace PokerGame
 {
-    class Player : IComparable<Player>
+    abstract class Player : IComparable<Player>
     {
         public string Name { get; set; }
         private List<Card> Cards { get; set; }
+        protected List<Card> cards { get { return Cards; } }
         int counter;
         public bool HasKnocked {get; set;}
+        private HandEvaluator playerHandEvaluator;
         public Hand Hand
         {
             get
             {
                 Cards.Sort();
-                HandEvaluator playerHandEvaluator = new HandEvaluator(Cards.ToArray());
-                return playerHandEvaluator.EvaluateHand();
+                return playerHandEvaluator.EvaluateHand(Cards.ToArray());
                 //TODO: evaluator needs to be a class member because it is used
                 // by the compareTo method (total and highcard values)
             }
         }
 
+        public HandEvaluator handEvaluator { get{ return playerHandEvaluator; }  }
 
-        public Player(List<Card> hand)
+        public Player(List<Card> hand, HandEvaluator he)
         {
+            playerHandEvaluator = he;
+            GetPlayerName();
             this.Cards = hand;
         }
 
@@ -54,35 +58,27 @@ namespace PokerGame
             return Name;
         }
 
+        public abstract int MakeChoice(List<Move> moves);
         
 
         public Move TakeTurn(List<Move> moves)
         {
+            // display hand
+            // Display list of available moves to player (console)
+            // get user input...
+
             // for loop over moves to prcess what's available...
             // foreach (Move move in moves) {
 
             // }
 
             //////////// Dumb AI //////////////
-            Random r = new Random();
-            int choice = r.Next(moves.Count);
+            
             ///////////////////////////////////
             // To be replaced with 
             // A) Smart AI which makes a good decision???
             // B) Actual player's input from GUI/Command line
-
-            switch (moves[choice])
-            {
-                case Move.Knock:
-                    break;
-                case Move.Put:
-                    break;
-                case Move.SwapCard:
-                    break;
-                case Move.SwapHand:
-                    break;
-            }
-            return moves[choice];
+            return moves[MakeChoice(moves)];
         }
 
         public int CompareTo(Player other)
@@ -98,18 +94,18 @@ namespace PokerGame
             else
             {
                 //first evaluate who has higher value of poker hand
-                if (this.Hand.Total > other.HandValues.Total)
-                    Console.WriteLine("Player WINS!");
-                else if (playerHandEvaluator.HandValues.Total < computerHandEvaluator.HandValues.Total)
-                    Console.WriteLine("Computer WINS!");
+                if (this.playerHandEvaluator.Total > other.handEvaluator.Total)
+                    return 1;
+                else if (playerHandEvaluator.Total < other.handEvaluator.Total)
+                    return -1;
                 //if both hands have the same poker hand ( eg. both have a pair of queens ), 
                 //then the player with the next higher card
-                else if (playerHandEvaluator.HandValues.HighCard > computerHandEvaluator.HandValues.HighCard)
-                    Console.WriteLine("Player WINS!");
-                else if (playerHandEvaluator.HandValues.HighCard < computerHandEvaluator.HandValues.HighCard)
-                    Console.WriteLine("Computer WINS!");
+                else if (playerHandEvaluator.HighCard > other.handEvaluator.HighCard)
+                    return 1;
+                else if (playerHandEvaluator.HighCard < other.handEvaluator.HighCard)
+                    return -1;
                 else
-                    Console.WriteLine("DRAW, no one wins!");
+                    return 0;
             }
         }
     }

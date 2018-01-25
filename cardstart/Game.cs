@@ -66,6 +66,7 @@ namespace PokerGame
             }
             while (gameover != true);
             players.Sort();
+            Console.WriteLine(players[0].Name);
             
             // TODO: end of game - compare hands to determine winner
             // evaluate *ALL* player's (sorted) hands - for each player, create evaluator
@@ -119,10 +120,11 @@ namespace PokerGame
             int counter = 0;
             List<Player> playerlist = new List<Player>();
             tableHand = deck.Deal(5);
+            playerlist.Add(new HumanPlayer(deck.Deal(5), new HandEvaluator()));
             while ((numberofplayers > 0) && (counter < numberofplayers))
             {
                 counter++;
-                playerlist.Add(new Player(deck.Deal(5)));
+                playerlist.Add(new ComputerPlayer(deck.Deal(5), new HandEvaluator()));
             }
             return playerlist;
         }

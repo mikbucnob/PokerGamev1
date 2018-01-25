@@ -51,7 +51,11 @@ namespace PokerGame
                 return 0;
             }
             
+        }
 
+        public override string ToString()
+        {
+            return face.ToString() +" of "+ suit.ToString();
         }
     }
 }
